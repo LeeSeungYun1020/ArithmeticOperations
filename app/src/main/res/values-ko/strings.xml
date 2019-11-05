@@ -2,4 +2,10 @@
 <resources>
     <string name="app_name">사칙 연산</string>
     <string name="start">시작</string>
+    <string name="pass">패스</string>
+    <string name="pause">일시정지</string>
+    <string name="resume">계속</string>
+    <string name="key">열쇠</string>
+    <string name="life">생명</string>
+    <string name="time">시간</string>
 </resources>

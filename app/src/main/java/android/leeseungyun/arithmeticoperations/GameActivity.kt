@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.DragEvent
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_game.*
 import org.jetbrains.anko.toast
 import kotlin.Exception
@@ -26,13 +28,29 @@ class GameActivity : AppCompatActivity() {
         initOperatorDragAndDrop()
         initNumberDragAndDrop()
 
+        bottomAppBar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.menuPause -> toast("pause")
+                R.id.menuPass -> toast("pass")
+            }
+            true
+        }
+
+        checkFab.setOnClickListener {v ->
+
+        }
+
         val quest = Question().makeQuest()
         val questList = quest.questList
         answerTextView.text = quest.answer.toString()
         numberButtonList.forEachIndexed { i, button ->
             button.text = questList[i].toString()
         }
+
+
     }
+
+
 
     private fun initOperatorDragAndDrop() {
         addButton.dragEnabled(DropType.OPERATOR)
