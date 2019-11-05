@@ -9,7 +9,10 @@ fun Int.operation(operator: Operator, other:Int) = when (operator) {
     Operator.ADD -> this + other
     Operator.SUB -> this - other
     Operator.MUL -> this * other
-    Operator.DIV -> if (this % other == 0) this / other else throw Error("Div Error")
+    Operator.DIV -> {
+        if (this % other == 0) this / other
+        else throw ArithmeticException("Can't calculate $this / $other")
+    }
 }
 
 fun operation(a: Int, operator1: Operator, b: Int, operator2: Operator, c: Int) : Int = when {
@@ -62,7 +65,7 @@ class Question(private val gameMode: GameMode = GameMode.NORMAL, val time:Int = 
                 second = (1..max).filter { first % it == 0 }.random()
                 last = (1..max).filter { (first / second) % it == 0 }.random()
             }
-            // a / b * 10
+            // a / b * c
             operator1 == Operator.DIV && operator2 == Operator.MUL -> {
                 first = (1..max).random()
                 last = (1..max).random()
@@ -92,7 +95,15 @@ class Question(private val gameMode: GameMode = GameMode.NORMAL, val time:Int = 
                 last = (1..max).random()
             }
         }
-        answer = operation(first, operator1, second, operator2, last)
+        answer = try {
+            operation(first, operator1, second, operator2, last)
+        }catch (e: ArithmeticException){
+            if(operator1 == Operator.DIV && operator2 == Operator.MUL)
+                operation(first, operator2, last, operator1, first)
+            else
+                throw e
+        }
+
         numberList = listOf(first, second, last)
         questList = listOf(first, second, last, (1..max).random()).shuffled()
     }
