@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ArithmeticOperations</string>
+    <string name="add" translatable="false">+</string>
+    <string name="sub" translatable="false">-</string>
+    <string name="div" translatable="false">÷</string>
+    <string name="mul" translatable="false">×</string>
+    <string name="undefined" translatable="false">\?</string>
+    <string name="start">Start</string>
+</resources>
