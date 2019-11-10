@@ -22,24 +22,35 @@ fun operation(a: Int, operator1: Operator, b: Int, operator2: Operator, c: Int) 
         a.operation(operator1, b.operation(operator2, c))
 }
 
-enum class GameMode(val numberOfOperator: Int){ MINI(1), NORMAL(2)}
+enum class GameMode{ MINI, NORMAL}
 
-class Question(private val gameMode: GameMode = GameMode.NORMAL, val time:Int = 60, private val max:Int = 9) {
+class Game(private val gameMode: GameMode = GameMode.NORMAL, val time:Int = 60, private val max:Int = 9) {
 
 
     var answer = 0
     lateinit var numberList: List<Int>
     lateinit var questList: List<Int>
 
-    fun makeQuest() :Question {
+    fun makeGame() :Game {
         when(gameMode){
-            GameMode.NORMAL -> questNormal()
-            GameMode.MINI -> questMini()
+            GameMode.NORMAL -> gameNormalMode()
+            GameMode.MINI -> gameMiniMode()
         }
         return this
     }
 
-    private fun questMini() {
+    fun checkAnswer(first: Int, operator1: Operator, second:Int, operator2: Operator, last: Int): Boolean {
+        return (answer == try {
+            operation(first, operator1, second, operator2, last)
+        }catch (e: ArithmeticException){
+            if(operator1 == Operator.DIV && operator2 == Operator.MUL)
+                operation(first, operator2, last, operator1, first)
+            else
+                false
+        })
+    }
+
+    private fun gameMiniMode() {
         val operator = Operator.values().random()
         val first = (1..max).random()
         val last = when(operator) {
@@ -51,7 +62,7 @@ class Question(private val gameMode: GameMode = GameMode.NORMAL, val time:Int = 
         questList = listOf(first, last, (1..max).random()).shuffled()
     }
 
-    private fun questNormal() {
+    private fun gameNormalMode() {
         val operator1 = Operator.values().random()
         val operator2 = Operator.values().random()
 
@@ -107,6 +118,8 @@ class Question(private val gameMode: GameMode = GameMode.NORMAL, val time:Int = 
         numberList = listOf(first, second, last)
         questList = listOf(first, second, last, (1..max).random()).shuffled()
     }
+
+
 
 }
 
