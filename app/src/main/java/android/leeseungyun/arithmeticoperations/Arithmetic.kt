@@ -1,11 +1,16 @@
 package android.leeseungyun.arithmeticoperations
 
-enum class Operator(val priority: Int){
+import android.app.Activity
+import android.util.Log
+import java.util.*
+import kotlin.concurrent.timer
+
+enum class Operator(val priority: Int) {
     ADD(2), SUB(2), MUL(1), DIV(1)
 
 }
 
-fun Int.operation(operator: Operator, other:Int) = when (operator) {
+fun Int.operation(operator: Operator, other: Int) = when (operator) {
     Operator.ADD -> this + other
     Operator.SUB -> this - other
     Operator.MUL -> this * other
@@ -15,60 +20,69 @@ fun Int.operation(operator: Operator, other:Int) = when (operator) {
     }
 }
 
-fun operation(a: Int, operator1: Operator, b: Int, operator2: Operator, c: Int) : Int = when {
+fun operation(a: Int, operator1: Operator, b: Int, operator2: Operator, c: Int): Int = when {
     operator1.priority <= operator2.priority ->
         a.operation(operator1, b).operation(operator2, c)
     else ->
         a.operation(operator1, b.operation(operator2, c))
 }
 
-enum class GameMode{ MINI, NORMAL}
+enum class GameMode { NORMAL, PRACTICE }
 
-class Game(private val gameMode: GameMode = GameMode.NORMAL, val time:Int = 60, private val max:Int = 9) {
-
-
+class Game(
+    private val gameMode: GameMode,
+    private val time: Int,
+    private val max: Int,
+    var heart: Int
+) {
+    private var timer: Timer? = null
+        set(value) {
+            field?.cancel()
+            field = value
+        }
+    private var t = time * 100
     var answer = 0
+        private set
     lateinit var numberList: List<Int>
     lateinit var questList: List<Int>
 
-    fun makeGame() :Game {
-        when(gameMode){
+
+    fun makeGame(): Game {
+        when (gameMode) {
             GameMode.NORMAL -> gameNormalMode()
-            GameMode.MINI -> gameMiniMode()
+            GameMode.PRACTICE -> gamePracticeMode()
         }
         return this
     }
 
-    fun checkAnswer(first: Int, operator1: Operator, second:Int, operator2: Operator, last: Int): Boolean {
+    fun checkAnswer(
+        first: Int,
+        operator1: Operator,
+        second: Int,
+        operator2: Operator,
+        last: Int
+    ): Boolean {
         return (answer == try {
             operation(first, operator1, second, operator2, last)
-        }catch (e: ArithmeticException){
-            if(operator1 == Operator.DIV && operator2 == Operator.MUL)
-                operation(first, operator2, last, operator1, first)
+        } catch (e: ArithmeticException) {
+            if (operator1 == Operator.DIV && operator2 == Operator.MUL)
+                operation(first, operator2, last, operator1, second)
             else
                 false
         })
     }
 
-    private fun gameMiniMode() {
-        val operator = Operator.values().random()
-        val first = (1..max).random()
-        val last = when(operator) {
-            Operator.DIV -> (1..max).filter { first % it == 0 }.random()
-            else -> (1..max).random()
-        }
-        answer = first.operation(operator, last)
-        numberList = listOf(first, last)
-        questList = listOf(first, last, (1..max).random()).shuffled()
+    private fun gamePracticeMode() {
+
     }
 
     private fun gameNormalMode() {
         val operator1 = Operator.values().random()
         val operator2 = Operator.values().random()
 
-        val first:Int
-        val second:Int
-        val last:Int
+        val first: Int
+        val second: Int
+        val last: Int
         when {
             // a / b / c
             operator1 == Operator.DIV && operator2 == Operator.DIV -> {
@@ -92,7 +106,7 @@ class Game(private val gameMode: GameMode = GameMode.NORMAL, val time:Int = 60, 
             operator1 == Operator.MUL && operator2 == Operator.DIV -> {
                 first = (1..max).random()
                 second = (1..max).random()
-                last = (1..max).filter { (first * second) % it == 0  }.random()
+                last = (1..max).filter { (first * second) % it == 0 }.random()
             }
             // a +- b / c
             operator2 == Operator.DIV -> {
@@ -108,8 +122,8 @@ class Game(private val gameMode: GameMode = GameMode.NORMAL, val time:Int = 60, 
         }
         answer = try {
             operation(first, operator1, second, operator2, last)
-        }catch (e: ArithmeticException){
-            if(operator1 == Operator.DIV && operator2 == Operator.MUL)
+        } catch (e: ArithmeticException) {
+            if (operator1 == Operator.DIV && operator2 == Operator.MUL)
                 operation(first, operator2, last, operator1, first)
             else
                 throw e
@@ -119,7 +133,32 @@ class Game(private val gameMode: GameMode = GameMode.NORMAL, val time:Int = 60, 
         questList = listOf(first, second, last, (1..max).random()).shuffled()
     }
 
+    fun startGame(activity: Activity, callback: (Int) -> Unit, end: () -> Unit) {
+        t = time * 100
+        var isEnd = false
+        timer = timer("gameTimer", period = 10L) {
+            activity.runOnUiThread {
+                callback(t)
+                if (t <= 0 && !isEnd) {
+                    isEnd = true
+                    end()
+                }
+            }
+            t--
+        }
+    }
 
+    fun pauseGame() {
+
+    }
+
+    fun restartGame() {
+
+    }
+
+    fun cancelTimer() {
+        Log.d("TESTLOG", "timer ${timer?.cancel()}")
+    }
 
 }
 

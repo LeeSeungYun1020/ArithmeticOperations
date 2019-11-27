@@ -7,9 +7,25 @@
     <string name="undefined" translatable="false">\?</string>
     <string name="start">Start</string>
     <string name="pause">pause</string>
-    <string name="resume">resume</string>
     <string name="pass">pass</string>
     <string name="time">Time</string>
     <string name="life">Life</string>
     <string name="key">Key</string>
+    <string name="practice">practice</string>
+    <string name="description">description</string>
+    <string name="setting">setting</string>
+    <string name="score" translatable="false">\??/??</string>
+    <string name="giveUpGame">Do you want to give up the game?</string>
+    <string name="win">Win</string>
+    <string name="winMsg">You win!</string>
+    <string name="item">Item</string>
+    <string name="clickBox">Open your present box.</string>
+    <string name="gift">Gift</string>
+    <string name="empty">Empty box</string>
+    <string name="emptyMsg">There is nothing in the box...</string>
+    <string name="giftMsgKey">You get a key.</string>
+    <string name="wrong">wrong answer!</string>
+    <string name="lose">Lose</string>
+    <string name="loseMsg">You can clear next time...</string>
+    <string name="passUnable">You don\'t have enough key to pass</string>
 </resources>

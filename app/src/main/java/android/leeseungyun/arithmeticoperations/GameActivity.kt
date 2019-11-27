@@ -3,39 +3,68 @@ package android.leeseungyun.arithmeticoperations
 import android.content.ClipData
 import android.content.ClipDescription
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.DragEvent
 import android.view.View
 import android.widget.Button
-import androidx.core.database.getIntOrNull
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_game.*
-import org.jetbrains.anko.db.select
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 
 class GameActivity : AppCompatActivity() {
     private val numberButtonList: List<Button> by lazy {
         listOf(numberButton1, numberButton2, numberButton3, numberButton4)
     }
     private val connectedNumberButtons: MutableMap<Button, Button> = mutableMapOf()
-    private val game = Game(GameMode.NORMAL, 60, 3)
+    private val game: Game by lazy {
+        Game(GameMode.NORMAL, 30, 9, 3)
+    }
+    private val maxScore = 20
+    private var score = 0
+    private lateinit var itemViewModel: ItemViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-
+        initItemDatabase()
         initDragAndDrop()
+        initClickCancel()
+        initBottomAppBar()
+        displayGame()
+    }
 
+    override fun onBackPressed() {
+        pause()
+    }
+
+    private fun initItemDatabase() {
+        itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
+        itemViewModel.allItems.observe(this, Observer { items ->
+            items?.let {
+                keyTextView.text = "${it.find { item -> item.itemName == "key" }?.count ?: 0}"
+            }
+        })
+    }
+
+    private fun initBottomAppBar() {
         bottomAppBar.setOnMenuItemClickListener {
-            when(it.itemId){
-                R.id.menuPause -> toast("pause")
-                R.id.menuPass -> toast("pass")
+            when (it.itemId) {
+                R.id.menuPause -> {
+                    pause()
+                }
+                R.id.menuPass -> {
+                    pass()
+                }
             }
             true
         }
+        initCheckFAB()
+    }
 
+    private fun initCheckFAB() {
         checkFab.setOnClickListener {
             val isRight = try {
                 game.checkAnswer(
@@ -49,35 +78,110 @@ class GameActivity : AppCompatActivity() {
                 false
             }
             if (isRight) {
-                toast("정답!")
-                displayGame()
+                score++
+                if (score >= maxScore)
+                    win()
+                else
+                    displayGame()
+            } else {
+                toast(R.string.wrong)
             }
-            else
-                toast("오답!")
         }
-        displayData()
-        displayGame()
     }
 
-    private fun String.toOperator() = when(this) {
-            resources.getText(R.string.add) -> Operator.ADD
-            resources.getText(R.string.sub) -> Operator.SUB
-            resources.getText(R.string.mul) -> Operator.MUL
-            resources.getText(R.string.div) -> Operator.DIV
-            else -> throw(IllegalArgumentException("Error: GameActivity, operator transformation error"))
+    private fun exit() {
+        game.cancelTimer()
+        finish()
+    }
+
+    private fun win() {
+        game.cancelTimer()
+        alert {
+            titleResource = R.string.win
+            messageResource = R.string.winMsg
+            okButton {
+                gainItem()
+            }
+            isCancelable = false
+        }.show()
+    }
+
+    private fun gainItem() {
+        alert {
+            titleResource = R.string.item
+            messageResource = R.string.clickBox
+            customView {
+                imageView(R.drawable.ic_box_black_24dp)
+                    .apply {
+                        setOnClickListener {
+                            drawing()
+                        }
+                    }
+            }
+            okButton {
+                drawing()
+            }
+            isCancelable = false
+        }.show()
+    }
+
+    private fun drawing() {
+        alert {
+            when ((1..100).random()) {
+                in (1..5) -> {// 5%
+                    titleResource = R.string.gift
+                    messageResource = R.string.giftMsgKey
+                    itemViewModel.update(Item("key", keyTextView.text.toString().toInt() + 1))
+                }
+                else -> {
+                    titleResource = R.string.empty
+                    messageResource = R.string.emptyMsg
+                }
+            }
+            okButton {
+                exit()
+            }
+            isCancelable = false
+        }.show()
+    }
+
+    private fun pause() {
+        alert {
+            title = resources.getText(R.string.pause)
+            message = resources.getText(R.string.giveUpGame)
+            okButton {
+                exit()
+            }
+            cancelButton {
+
+            }
+
+        }.show()
+    }
+
+    private fun pass() {
+        val count = keyTextView.text.toString().toInt()
+        if (count > 0) {
+            itemViewModel.update(Item("key", count - 1))
+            game.cancelTimer()
+            toast(R.string.pass)
+            displayGame()
+        } else {
+            toast(R.string.passUnable)
         }
 
-    private fun displayGame() {
+    }
+
+    private fun String.toOperator() = when (this) {
+        resources.getText(R.string.add) -> Operator.ADD
+        resources.getText(R.string.sub) -> Operator.SUB
+        resources.getText(R.string.mul) -> Operator.MUL
+        resources.getText(R.string.div) -> Operator.DIV
+        else -> throw(IllegalArgumentException("Error: GameActivity, operator transformation error"))
+    }
+
+    private fun clearGame() {
         connectedNumberButtons.clear()
-        game.makeGame()
-        answerTextView.text = "${game.answer}"
-        numberButtonList.forEachIndexed { i, button ->
-            button.apply {
-                setEnabled(true)
-                setClickable(true)
-                text = "${game.questList[i]}"
-            }
-        }
         firstNumberButton.text = resources.getText(R.string.undefined)
         secondNumberButton.text = resources.getText(R.string.undefined)
         lastNumberButton.text = resources.getText(R.string.undefined)
@@ -85,18 +189,51 @@ class GameActivity : AppCompatActivity() {
         operator2Button.text = resources.getText(R.string.undefined)
     }
 
-    private fun displayData() {
-        val dbHelper = DBHelper(this)
-        //dbHelper.readableDatabase.select("Item", "key").exec {  }
-        val itemKeyCount =  dbHelper.readableDatabase.select("Item", "name")
-            .whereArgs("(name = {itemName})",
-                "itemName" to "key").exec {
-                if(this.moveToNext())
-                    this.getIntOrNull(0) ?: 0
-                else
-                    0
+    private fun displayGame() {
+        clearGame()
+        game.makeGame().startGame(this, callback = { t ->
+            gameTimerTextView.text = "${t / 100}"
+            gameTimerMilliTextView.text = "${t % 100}"
+        }, end = {
+            game.heart--
+            if (game.heart > 0) {
+                displayGame()
+            } else {
+                displayStatusData()
+                lose()
             }
-        keyTextView.text = "$itemKeyCount"
+        })
+        displayGameData()
+        displayStatusData()
+    }
+
+    private fun displayGameData() {
+        answerTextView.text = "${game.answer}"
+        numberButtonList.forEachIndexed { i, button ->
+            button.apply {
+                isEnabled = true
+                isClickable = true
+                text = "${game.questList[i]}"
+            }
+        }
+    }
+
+    private fun displayStatusData() {
+        heartTextView.text = game.heart.toString()
+
+        gameScoreTextView.text = "$score/$maxScore"
+    }
+
+    private fun lose() {
+        game.cancelTimer()
+        alert {
+            titleResource = R.string.lose
+            messageResource = R.string.loseMsg
+            okButton {
+                exit()
+            }
+            isCancelable = false
+        }.show()
     }
 
     private fun initDragAndDrop() {
@@ -138,14 +275,14 @@ class GameActivity : AppCompatActivity() {
 
     private fun Button.dropEnabled(type: DropType) {
         this.setOnDragListener { _, event ->
-            when(event.action) {
+            when (event.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
                     event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)
                 }
                 DragEvent.ACTION_DROP -> {
                     val label = event.clipData.description.label
                     // 서로 타입이 같은 경우에만 드롭이 허용됨.
-                    if (label == type.toString()){
+                    if (label == type.toString()) {
                         val code = event.clipData?.getItemAt(0)?.text
                             ?: resources.getText(R.string.undefined)
                         val originButton = findButtonByCode(code.toString())
@@ -158,30 +295,22 @@ class GameActivity : AppCompatActivity() {
             }
             true
         }
-
-        this.setOnClickListener {
-            connectedNumberButtons[this]?.apply {
-                setEnabled(true)
-                setClickable(true)
-            }
-            connectedNumberButtons.remove(this)
-            this.text = resources.getString(R.string.undefined)
-            Log.d("TESTLOG", "${this.code()} 작동")
-        }
     }
 
-    private fun dropButton(origin: Button, selected:Button) :Boolean {
-        Log.d("TESTLOG", "NUMBER, ${origin.code()} -> ${selected.code()}")
-
-        if(origin.text == resources.getText(R.string.undefined))
+    private fun dropButton(origin: Button, selected: Button): Boolean {
+        if (origin.text == resources.getText(R.string.undefined))
             return false
 
-        when(origin.code()){
+        when (origin.code()) {
             InteractionButtons.NUM1, InteractionButtons.NUM2, InteractionButtons.NUM3, InteractionButtons.NUM4 -> {
                 selected.text = origin.text
+                connectedNumberButtons[selected]?.apply {
+                    isEnabled = true
+                    isClickable = true
+                }
                 connectedNumberButtons[selected] = origin.apply {
-                    setEnabled(false)
-                    setClickable(false)
+                    isEnabled = false
+                    isClickable = false
                 }
             }
             InteractionButtons.ANS1, InteractionButtons.ANS2, InteractionButtons.ANS3 -> {
@@ -190,8 +319,8 @@ class GameActivity : AppCompatActivity() {
                 origin.text = tem
 
                 try {
-                    if (connectedNumberButtons[selected] != null){//오리진은 무조건 값을 가짐!
-                        val temButton:Button = connectedNumberButtons[selected]!!
+                    if (connectedNumberButtons[selected] != null) {//오리진은 무조건 값을 가짐!
+                        val temButton: Button = connectedNumberButtons[selected]!!
                         connectedNumberButtons[selected] = connectedNumberButtons[origin]!!
                         connectedNumberButtons[origin] = temButton
                     } else {
@@ -216,7 +345,28 @@ class GameActivity : AppCompatActivity() {
         return true
     }
 
-    private fun Button.code(): InteractionButtons = when(this){
+
+    private fun initClickCancel() {
+        firstNumberButton.clickCancelEnabled()
+        secondNumberButton.clickCancelEnabled()
+        lastNumberButton.clickCancelEnabled()
+
+        operator1Button.clickCancelEnabled()
+        operator2Button.clickCancelEnabled()
+    }
+
+    private fun Button.clickCancelEnabled() {
+        this.setOnClickListener {
+            connectedNumberButtons[this]?.apply {
+                isEnabled = true
+                isClickable = true
+            }
+            connectedNumberButtons.remove(this)
+            this.text = resources.getString(R.string.undefined)
+        }
+    }
+
+    private fun Button.code(): InteractionButtons = when (this) {
         numberButton1 -> InteractionButtons.NUM1
         numberButton2 -> InteractionButtons.NUM2
         numberButton3 -> InteractionButtons.NUM3
@@ -232,12 +382,14 @@ class GameActivity : AppCompatActivity() {
         operator2Button -> InteractionButtons.ANSOP2
         else -> throw (IllegalArgumentException("ERROR: Game/Button.code() illegal button"))
     }
+
     private fun findButtonByCode(code: String): Button = try {
         findButtonByCode(InteractionButtons.valueOf(code))
-    } catch (e: Exception){
+    } catch (e: Exception) {
         throw (IllegalArgumentException("ERROR: Game/findButtonByCode illegal button"))
     }
-    private fun findButtonByCode(code: InteractionButtons): Button = when(code){
+
+    private fun findButtonByCode(code: InteractionButtons): Button = when (code) {
         InteractionButtons.NUM1 -> numberButton1
         InteractionButtons.NUM2 -> numberButton2
         InteractionButtons.NUM3 -> numberButton3
@@ -252,6 +404,7 @@ class GameActivity : AppCompatActivity() {
         InteractionButtons.ANSOP1 -> operator1Button
         InteractionButtons.ANSOP2 -> operator2Button
     }
+
     private enum class InteractionButtons {
         NUM1,
         NUM2,

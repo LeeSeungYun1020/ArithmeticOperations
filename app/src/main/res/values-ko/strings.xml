@@ -4,8 +4,23 @@
     <string name="start">시작</string>
     <string name="pass">패스</string>
     <string name="pause">일시정지</string>
-    <string name="resume">계속</string>
     <string name="key">열쇠</string>
     <string name="life">생명</string>
     <string name="time">시간</string>
+    <string name="description">설명</string>
+    <string name="practice">연습</string>
+    <string name="setting">설정</string>
+    <string name="giveUpGame">게임을 포기하시겠습니까?</string>
+    <string name="win">승리</string>
+    <string name="winMsg">이겼습니다!</string>
+    <string name="item">아이템</string>
+    <string name="clickBox">선물 상자를 열어보세요.</string>
+    <string name="gift">선물</string>
+    <string name="empty">빈 상자</string>
+    <string name="emptyMsg">상자 안에 아무것도 없네요...</string>
+    <string name="giftMsgKey">열쇠를 하나 얻었어요.</string>
+    <string name="wrong">틀렸습니다!</string>
+    <string name="lose">패배</string>
+    <string name="loseMsg">다음번에는 할 수 있을겁니다...</string>
+    <string name="passUnable">열쇠가 없어서 패스할 수 없어요.</string>
 </resources>

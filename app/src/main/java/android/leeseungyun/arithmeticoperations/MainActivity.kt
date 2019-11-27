@@ -13,5 +13,13 @@ class MainActivity : AppCompatActivity() {
         startButton.setOnClickListener {
             startActivity<GameActivity>()
         }
+        practiceButton.setOnClickListener {
+        }
+        descriptionButton.setOnClickListener {
+
+        }
+        settingButton.setOnClickListener {
+
+        }
     }
 }

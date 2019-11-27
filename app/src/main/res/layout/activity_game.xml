@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gameView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         style="@style/Widget.MaterialComponents.BottomAppBar"
@@ -15,98 +15,132 @@
         android:backgroundTint="@color/colorPrimary"
         app:fabAlignmentMode="end"
         app:fabCradleRoundedCornerRadius="24dp"
-        app:menu="@menu/game_menu"
-        />
+        app:menu="@menu/game_menu" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/checkFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_check_black_24dp"
+        android:tint="@color/colorAccentText"
         app:layout_anchor="@id/bottomAppBar"
-
-        />
+        app:layout_anchorGravity="bottom|right" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/gameContentView"
         android:layout_width="match_parent"
-        android:layout_height="675dp"
-        tools:context=".GameActivity">
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        tools:context=".GameActivity"
+
+        >
+
+        <TextView
+            android:id="@+id/bottomAppBarHeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="56dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/infoBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:background="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@id/expressionBox"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0"
-            >
+            app:layout_constraintVertical_bias="0">
 
             <ImageView
                 android:id="@+id/gameTimerImageView"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
                 android:clickable="true"
                 android:contentDescription="@string/time"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_timer_black_24dp"/>
+                app:srcCompat="@drawable/ic_timer_black_24dp" />
+
             <TextView
                 android:id="@+id/gameTimerTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="3dp"
                 android:hint="@string/undefined"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="28sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/gameTimerImageView"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/gameTimerMilliTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:hint="@string/undefined"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/gameTimerTextView" />
+
+            <TextView
+                android:id="@+id/gameScoreTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/score"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/heartImageButton"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="8dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="4dp"
                 android:clickable="true"
                 android:contentDescription="@string/life"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/heartTextView"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_heart_black_24dp"/>
+                app:srcCompat="@drawable/ic_heart_black_24dp" />
 
             <TextView
                 android:id="@+id/heartTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
+                android:layout_marginEnd="8dp"
                 android:hint="@string/undefined"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="28sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/keyImageButton"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/keyImageButton"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="8dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="4dp"
                 android:clickable="true"
                 android:contentDescription="@string/key"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/keyTextView"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_vpn_key_black_24dp"/>
+                app:srcCompat="@drawable/ic_vpn_key_black_24dp" />
 
             <TextView
                 android:id="@+id/keyTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:hint="@string/undefined"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="28sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -130,6 +164,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/undefined"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                android:textColor="@color/colorPrimaryText"
                 app:layout_constraintEnd_toStartOf="@+id/operator1Button"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -143,6 +178,7 @@
                 android:backgroundTint="@color/colorAccent"
                 android:text="@string/undefined"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                android:textColor="@color/colorAccentText"
                 app:layout_constraintEnd_toStartOf="@+id/secondNumberButton"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/firstNumberButton"
@@ -155,6 +191,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/undefined"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                android:textColor="@color/colorPrimaryText"
                 app:layout_constraintEnd_toStartOf="@+id/operator2Button"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/operator1Button"
@@ -168,6 +205,7 @@
                 android:backgroundTint="@color/colorAccent"
                 android:text="@string/undefined"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                android:textColor="@color/colorAccentText"
                 app:layout_constraintEnd_toStartOf="@id/lastNumberButton"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/secondNumberButton"
@@ -180,6 +218,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/undefined"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                android:textColor="@color/colorPrimaryText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/operator2Button"
@@ -193,6 +232,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/undefined"
             android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textColor="@color/colorPrimaryText"
             app:layout_constraintBottom_toTopOf="@id/selectBox"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -204,11 +244,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottomAppBarHeight"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/answerTextView"
-            >
+            app:layout_constraintTop_toBottomOf="@id/answerTextView">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/numberBox"
@@ -226,6 +265,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/undefined"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="24sp"
                     app:layout_constraintEnd_toStartOf="@+id/numberButton2"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -237,6 +277,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/undefined"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="24sp"
                     app:layout_constraintEnd_toStartOf="@+id/numberButton3"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/numberButton1"
@@ -248,6 +289,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/undefined"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="24sp"
                     app:layout_constraintEnd_toStartOf="@+id/numberButton4"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/numberButton2"
@@ -259,6 +301,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/undefined"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/numberButton3"
@@ -282,6 +325,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/add"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/subButton"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -294,6 +338,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/sub"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/mulButton"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -306,6 +351,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/mul"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/divButton"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -318,6 +364,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/div"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
