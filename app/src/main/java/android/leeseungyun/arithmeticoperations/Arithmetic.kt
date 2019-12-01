@@ -1,7 +1,6 @@
 package android.leeseungyun.arithmeticoperations
 
 import android.app.Activity
-import android.util.Log
 import java.util.*
 import kotlin.concurrent.timer
 
@@ -30,7 +29,6 @@ fun operation(a: Int, operator1: Operator, b: Int, operator2: Operator, c: Int):
 enum class GameMode { NORMAL, PRACTICE }
 
 class Game(
-    private val gameMode: GameMode,
     private val time: Int,
     private val max: Int,
     var heart: Int
@@ -45,15 +43,6 @@ class Game(
         private set
     lateinit var numberList: List<Int>
     lateinit var questList: List<Int>
-
-
-    fun makeGame(): Game {
-        when (gameMode) {
-            GameMode.NORMAL -> gameNormalMode()
-            GameMode.PRACTICE -> gamePracticeMode()
-        }
-        return this
-    }
 
     fun checkAnswer(
         first: Int,
@@ -72,11 +61,7 @@ class Game(
         })
     }
 
-    private fun gamePracticeMode() {
-
-    }
-
-    private fun gameNormalMode() {
+    fun makeGame(): Game {
         val operator1 = Operator.values().random()
         val operator2 = Operator.values().random()
 
@@ -131,6 +116,7 @@ class Game(
 
         numberList = listOf(first, second, last)
         questList = listOf(first, second, last, (1..max).random()).shuffled()
+        return this
     }
 
     fun startGame(activity: Activity, callback: (Int) -> Unit, end: () -> Unit) {
@@ -148,16 +134,8 @@ class Game(
         }
     }
 
-    fun pauseGame() {
-
-    }
-
-    fun restartGame() {
-
-    }
-
     fun cancelTimer() {
-        Log.d("TESTLOG", "timer ${timer?.cancel()}")
+        timer?.cancel()
     }
 
 }

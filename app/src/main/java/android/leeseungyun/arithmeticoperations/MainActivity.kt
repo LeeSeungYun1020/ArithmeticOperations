@@ -11,10 +11,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         startButton.setOnClickListener {
-            startActivity<GameActivity>()
+            startActivity<GameActivity>(
+                "mode" to R.string.start
+            )
         }
         practiceButton.setOnClickListener {
-
+            startActivity<GameActivity>(
+                "mode" to R.string.practice
+            )
         }
         descriptionButton.setOnClickListener {
 

@@ -33,7 +33,7 @@
     <string name="feedback">피드백</string>
     <string name="practiceMode">연습 모드</string>
     <string name="send">보내기</string>
-    <string name="max">자릿수</string>
-    <string name="standard">표준 설정으로 전환</string>
-    <string name="standardMsg">모든 값을 표준 게임 설정값으로 정합니다.</string>
+    <string name="max">최댓값</string>
+    <string name="defaultValue">기본값으로 되돌리기</string>
+    <string name="defaultValueMsg">모든 값을 표준 연습 모드 기본값으로 교체합니다.</string>
 </resources>

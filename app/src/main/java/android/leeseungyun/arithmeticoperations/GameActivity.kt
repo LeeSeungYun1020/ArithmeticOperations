@@ -10,25 +10,55 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.activity_game.*
 import org.jetbrains.anko.*
 
 class GameActivity : AppCompatActivity() {
+    private var mode: GameMode = GameMode.NORMAL
+    private val preferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(this)
+    }
+    private val isCustom by lazy {
+        (mode == GameMode.PRACTICE && preferences.getBoolean("practiceMode", false))
+    }
+    private val game by lazy {
+        if (isCustom) {
+            Game(
+                time = preferences.getInt("practiceTime", 0),
+                max = preferences.getInt("practiceMax", 0),
+                heart = preferences.getInt("practiceLife", 0)
+            )
+        } else {
+            val resources = resources
+            Game(
+                time = resources.getInteger(R.integer.time),
+                max = resources.getInteger(R.integer.max),
+                heart = resources.getInteger(R.integer.life)
+            )
+        }
+    }
+    private val goal by lazy {
+        if (isCustom)
+            preferences.getInt("practiceGoal", 0)
+        else
+            resources.getInteger(R.integer.goal)
+    }
+    private var score = 0
+    private lateinit var itemViewModel: ItemViewModel
+
     private val numberButtonList: List<Button> by lazy {
         listOf(numberButton1, numberButton2, numberButton3, numberButton4)
     }
     private val connectedNumberButtons: MutableMap<Button, Button> = mutableMapOf()
-    private val game: Game by lazy {
-        Game(GameMode.NORMAL, 30, 9, 3)
-    }
-    private val maxScore = 20
-    private var score = 0
-    private lateinit var itemViewModel: ItemViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
+        mode = when (intent.getIntExtra("mode", 0)) {
+            R.string.practice -> GameMode.PRACTICE
+            else -> GameMode.NORMAL
+        }
         initItemDatabase()
         initDragAndDrop()
         initClickCancel()
@@ -41,12 +71,23 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun initItemDatabase() {
-        itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
-        itemViewModel.allItems.observe(this, Observer { items ->
-            items?.let {
-                keyTextView.text = "${it.find { item -> item.itemName == "key" }?.count ?: 0}"
-            }
-        })
+        if (mode == GameMode.NORMAL) {
+            itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
+            itemViewModel.allItems.observe(this, Observer { items ->
+                items?.let {
+                    keyTextView.text = "${it.find { item -> item.itemName == "key" }?.count ?: 0}"
+                }
+            })
+        } else {
+            keyTextView.text = if (isCustom)
+                preferences
+                    .getInt("practiceKey", 0)
+                    .toString()
+            else
+                resources
+                    .getInteger(R.integer.key)
+                    .toString()
+        }
     }
 
     private fun initBottomAppBar() {
@@ -79,7 +120,7 @@ class GameActivity : AppCompatActivity() {
             }
             if (isRight) {
                 score++
-                if (score >= maxScore)
+                if (score >= goal)
                     win()
                 else
                     displayGame()
@@ -100,7 +141,10 @@ class GameActivity : AppCompatActivity() {
             titleResource = R.string.win
             messageResource = R.string.winMsg
             okButton {
-                gainItem()
+                if (mode == GameMode.NORMAL)
+                    gainItem()
+                else
+                    exit()
             }
             isCancelable = false
         }.show()
@@ -162,7 +206,10 @@ class GameActivity : AppCompatActivity() {
     private fun pass() {
         val count = keyTextView.text.toString().toInt()
         if (count > 0) {
-            itemViewModel.update(Item("key", count - 1))
+            if (mode == GameMode.NORMAL)
+                itemViewModel.update(Item("key", count - 1))
+            else
+                keyTextView.text = "${count - 1}"
             game.cancelTimer()
             toast(R.string.pass)
             displayGame()
@@ -221,7 +268,7 @@ class GameActivity : AppCompatActivity() {
     private fun displayStatusData() {
         heartTextView.text = game.heart.toString()
 
-        gameScoreTextView.text = "$score/$maxScore"
+        gameScoreTextView.text = "$score/$goal"
     }
 
     private fun lose() {

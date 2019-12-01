@@ -47,19 +47,19 @@
             app:showSeekBarValue="true"
             app:title="@string/key" />
         <SeekBarPreference
-            android:max="3"
+            android:max="99"
             app:defaultValue="@integer/max"
             app:dependency="practiceMode"
             app:icon="@drawable/ic_number_9_plus_black_24dp"
             app:key="practiceMax"
-            app:min="1"
+            app:min="9"
             app:showSeekBarValue="true"
             app:title="@string/max" />
         <Preference
             app:dependency="practiceMode"
             app:iconSpaceReserved="false"
             app:key="practiceStandard"
-            app:summary="@string/standardMsg"
-            app:title="@string/standard" />
+            app:summary="@string/defaultValueMsg"
+            app:title="@string/defaultValue" />
     </PreferenceCategory>
 </PreferenceScreen>

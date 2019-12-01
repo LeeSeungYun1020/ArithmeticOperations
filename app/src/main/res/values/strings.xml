@@ -30,7 +30,7 @@
     <string name="passUnable">You don\'t have enough key to pass</string>
     <string name="title_activity_settings">Settings</string>
     <string name="goalScore">Goal score</string>
-    <string name="max">Digit</string>
+    <string name="max">Max number</string>
     <string name="practiceModeSettingMsg">Use own settings</string>
     <string name="practiceModeSettingOnMsg">Practice mode use your settings.</string>
     <string name="practiceModeSettingOffMsg">Practice mode use standard settings.</string>
@@ -39,6 +39,6 @@
     <string name="feedback">Feedback</string>
     <string name="practiceMode">Practice mode</string>
     <string name="send">send</string>
-    <string name="standard">Revert to standard settings</string>
-    <string name="standardMsg">Set all values to standard game setttings.</string>
+    <string name="defaultValue">Revert to default</string>
+    <string name="defaultValueMsg">Replace all values with standard practice mode defaults.</string>
 </resources>
