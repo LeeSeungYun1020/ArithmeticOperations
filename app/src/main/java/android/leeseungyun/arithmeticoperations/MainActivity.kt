@@ -1,9 +1,9 @@
 package android.leeseungyun.arithmeticoperations
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.*
+import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,12 +14,13 @@ class MainActivity : AppCompatActivity() {
             startActivity<GameActivity>()
         }
         practiceButton.setOnClickListener {
+
         }
         descriptionButton.setOnClickListener {
 
         }
         settingButton.setOnClickListener {
-
+            startActivity<SettingsActivity>()
         }
     }
 }

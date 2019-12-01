@@ -1,0 +1,14 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/practice">
+    <EditTextPreference
+        android:saveEnabled="false"
+        app:icon="@drawable/ic_bug_report_black_24dp"
+        app:key="bugReport"
+        app:positiveButtonText="@string/send"
+        app:title="@string/sendBugReport" />
+    <Preference
+        app:icon="@drawable/ic_git"
+        app:key="github"
+        app:title="@string/github" />
+</PreferenceScreen>

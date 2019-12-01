@@ -17,10 +17,23 @@
     <string name="clickBox">선물 상자를 열어보세요.</string>
     <string name="gift">선물</string>
     <string name="empty">빈 상자</string>
-    <string name="emptyMsg">상자 안에 아무것도 없네요...</string>
+    <string name="emptyMsg">상자 안에 아무것도 없네요…</string>
     <string name="giftMsgKey">열쇠를 하나 얻었어요.</string>
     <string name="wrong">틀렸습니다!</string>
     <string name="lose">패배</string>
-    <string name="loseMsg">다음번에는 할 수 있을겁니다...</string>
+    <string name="loseMsg">다음번에는 할 수 있을겁니다…</string>
     <string name="passUnable">열쇠가 없어서 패스할 수 없어요.</string>
+    <string name="title_activity_settings">설정</string>
+    <string name="goalScore">목표 점수</string>
+    <string name="practiceModeSettingMsg">사용자 지정 설정 사용</string>
+    <string name="practiceModeSettingOffMsg">연습 모드에서 기본 설정을 사용합니다.</string>
+    <string name="practiceModeSettingOnMsg">연습 모드에서 사용자 지정 설정을 사용합니다.</string>
+    <string name="sendBugReport">오류 신고 보내기</string>
+    <string name="github">깃허브</string>
+    <string name="feedback">피드백</string>
+    <string name="practiceMode">연습 모드</string>
+    <string name="send">보내기</string>
+    <string name="max">자릿수</string>
+    <string name="standard">표준 설정으로 전환</string>
+    <string name="standardMsg">모든 값을 표준 게임 설정값으로 정합니다.</string>
 </resources>
