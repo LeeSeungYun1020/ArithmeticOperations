@@ -57,7 +57,7 @@ class Game(
             if (operator1 == Operator.DIV && operator2 == Operator.MUL)
                 operation(first, operator2, last, operator1, second)
             else
-                false
+                return false
         })
     }
 
@@ -119,8 +119,14 @@ class Game(
         return this
     }
 
-    fun startGame(activity: Activity, callback: (Int) -> Unit, end: () -> Unit) {
-        t = time * 100
+    fun startGame(
+        activity: Activity,
+        callback: (Int) -> Unit,
+        end: () -> Unit,
+        resume: Boolean = false
+    ) {
+        if (!resume)
+            t = time * 100
         var isEnd = false
         timer = timer("gameTimer", period = 10L) {
             activity.runOnUiThread {

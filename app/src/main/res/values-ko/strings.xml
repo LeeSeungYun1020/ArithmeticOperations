@@ -36,4 +36,20 @@
     <string name="max">최댓값</string>
     <string name="defaultValue">기본값으로 되돌리기</string>
     <string name="defaultValueMsg">모든 값을 표준 연습 모드 기본값으로 교체합니다.</string>
+    <string name="numberButton">숫자 버튼</string>
+    <string name="goal">목표</string>
+    <string name="answerButton">답안 상자</string>
+    <string name="check">정답 확인</string>
+    <string name="operatorButton">연산자 버튼</string>
+    <string name="descriptionTime">상단 왼쪽에서 남은 초, 밀리초를 표시합니다. 시간이 다되면 생명(하트)을 잃습니다.</string>
+    <string name="descriptionGoal">몇 문제를 더 풀어야 게임에서 이길 수 있는지 알려줍니다. /를 기준으로 왼쪽에는 해결한 문제 수가, 오른쪽에는 전체 문제 수가 표시됩니다.</string>
+    <string name="descriptionLife">모든 생명을 잃게 되면 게임에서 패배하게 됩니다.</string>
+    <string name="descriptionKey">걱정하지 마세요. 이 아이템을 사용하여 문제를 통과(패스)해도 됩니다.</string>
+    <string name="descriptionAnswerButton">아래에서 숫자 또는 연산자를 드래그해서 여기에 드롭하여 답안을 작성합니다. 숫자는 숫자 자리에, 연산자는 연산자 자리에 드롭할 수 있습니다. 같은 종류끼리는 답안 상자에서 서로 위치를 바꿀 수 있습니다.</string>
+    <string name="descriptionNumberButton">문제마다 문제에 맞게 변형된 숫자 버튼이 표시됩니다. 알맞은 숫자를 드래그하여 답안 상자에 놓으면 됩니다.</string>
+    <string name="descriptionOperatorButton">사칙연산에 사용되는 연산자 4개가 항상 표시됩니다. 적합한 연산자를 드래그하여 답안 상자에 드롭하면 됩니다.</string>
+    <string name="descriptionPause">게임 중에는 게임 나가기 다이얼로그가 표시되지만 공정한 경기를 위해 시간은 계속 흐릅니다. 그러나 연습 모드에서는 그럴 필요가 없기 때문에 시간이 정지됩니다.</string>
+    <string name="descriptionPass">열쇠 아이템을 이용해서 문제를 패스할 수 있습니다. 열쇠 아이템이 없는 경우 패스할 수 없습니다.</string>
+    <string name="descriptionCheck">정답 확인을 어려워하지 마세요. 언제든지 버튼을 눌러 맞는지 틀렸는지 확인할 수 있습니다.</string>
+    <string name="descriptionGift">게임에서 이기면 일정 확률로 아이템을 얻을 수 있습니다.</string>
 </resources>

@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             )
         }
         descriptionButton.setOnClickListener {
-
+            startActivity<DescriptionActivity>()
         }
         settingButton.setOnClickListener {
             startActivity<SettingsActivity>()

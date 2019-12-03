@@ -23,14 +23,14 @@ class GameActivity : AppCompatActivity() {
         (mode == GameMode.PRACTICE && preferences.getBoolean("practiceMode", false))
     }
     private val game by lazy {
+        val resources = resources
         if (isCustom) {
             Game(
-                time = preferences.getInt("practiceTime", 0),
-                max = preferences.getInt("practiceMax", 0),
-                heart = preferences.getInt("practiceLife", 0)
+                time = preferences.getInt("practiceTime", resources.getInteger(R.integer.time)),
+                max = preferences.getInt("practiceMax", resources.getInteger(R.integer.max)),
+                heart = preferences.getInt("practiceLife", resources.getInteger(R.integer.life))
             )
         } else {
-            val resources = resources
             Game(
                 time = resources.getInteger(R.integer.time),
                 max = resources.getInteger(R.integer.max),
@@ -40,7 +40,7 @@ class GameActivity : AppCompatActivity() {
     }
     private val goal by lazy {
         if (isCustom)
-            preferences.getInt("practiceGoal", 0)
+            preferences.getInt("practiceGoal", resources.getInteger(R.integer.goal))
         else
             resources.getInteger(R.integer.goal)
     }
@@ -55,7 +55,7 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-        mode = when (intent.getIntExtra("mode", 0)) {
+        mode = when (intent.getIntExtra("mode", R.string.start)) {
             R.string.practice -> GameMode.PRACTICE
             else -> GameMode.NORMAL
         }
@@ -81,7 +81,7 @@ class GameActivity : AppCompatActivity() {
         } else {
             keyTextView.text = if (isCustom)
                 preferences
-                    .getInt("practiceKey", 0)
+                    .getInt("practiceKey", resources.getInteger(R.integer.key))
                     .toString()
             else
                 resources
@@ -190,6 +190,9 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun pause() {
+        if (mode == GameMode.PRACTICE) {
+            game.cancelTimer()
+        }
         alert {
             title = resources.getText(R.string.pause)
             message = resources.getText(R.string.giveUpGame)
@@ -197,9 +200,11 @@ class GameActivity : AppCompatActivity() {
                 exit()
             }
             cancelButton {
-
+                game.start(true)
             }
-
+            onCancelled {
+                game.start(true)
+            }
         }.show()
     }
 
@@ -238,7 +243,13 @@ class GameActivity : AppCompatActivity() {
 
     private fun displayGame() {
         clearGame()
-        game.makeGame().startGame(this, callback = { t ->
+        game.makeGame().start()
+        displayGameData()
+        displayStatusData()
+    }
+
+    private fun Game.start(resume: Boolean = false) {
+        this.startGame(this@GameActivity, callback = { t ->
             gameTimerTextView.text = "${t / 100}"
             gameTimerMilliTextView.text = "${t % 100}"
         }, end = {
@@ -249,9 +260,7 @@ class GameActivity : AppCompatActivity() {
                 displayStatusData()
                 lose()
             }
-        })
-        displayGameData()
-        displayStatusData()
+        }, resume = resume)
     }
 
     private fun displayGameData() {

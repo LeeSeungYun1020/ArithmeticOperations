@@ -41,4 +41,20 @@
     <string name="send">send</string>
     <string name="defaultValue">Revert to default</string>
     <string name="defaultValueMsg">Replace all values with standard practice mode defaults.</string>
+    <string name="goal">Goal</string>
+    <string name="answerButton">Answer box</string>
+    <string name="numberButton">Number buttons</string>
+    <string name="check">Check answer</string>
+    <string name="operatorButton">Operator buttons</string>
+    <string name="descriptionTime">Show second and millisecond value at the top left part. You will lose your life(heart), when time is up.</string>
+    <string name="descriptionGoal">It tells you how many problems left to win the game. Based on /, the left side shows the number of problems resolved and the right side shows the total number of problems.</string>
+    <string name="descriptionLife">If you lose all your lives, you will lose the game.</string>
+    <string name="descriptionKey">Don\'t worry. You can use this item to pass problem.</string>
+    <string name="descriptionAnswerButton">Drag a number or operator below and drop it here to complete your answer. You can drop numbers in place of numbers and operators in place of operators. The same kind can be swapped with each other in the answer box.</string>
+    <string name="descriptionNumberButton">For each problem, you\'ll see a numbered button that\'s tailored to your problem. Just drag the appropriate number and drop it to the answer box</string>
+    <string name="descriptionOperatorButton">The four operators used in the arithmetic operation are always displayed. Simply drag the appropriate operator and drop it in the answer box.</string>
+    <string name="descriptionPause">During the game, the Exit Game dialog is displayed, but the time keeps running for fair play. In practice mode, however, it does not have to be, so the time is stopped.</string>
+    <string name="descriptionPass">You can use the key item to pass the problem. If there is no key item, you can\'t pass.</string>
+    <string name="descriptionCheck">Don\' be worry to check your answer. You can always see whether you are right or not.</string>
+    <string name="descriptionGift">It you win the game, you have a chance to get items.</string>
 </resources>

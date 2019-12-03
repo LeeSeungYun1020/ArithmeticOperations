@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/timeCard"
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:id="@+id/cardLayoutTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/descriptionTimerTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/time"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/descriptionTimerImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/time"
+                    app:srcCompat="@drawable/ic_timer_black_24dp" />
+
+                <TextView
+                    android:id="@+id/descriptionTimerSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/descriptionTimerTitle"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/descriptionTimerImageView"
+                    android:text="@string/descriptionTime"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/goalCard"
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/timeCard">
+
+            <RelativeLayout
+                android:id="@+id/cardLayoutGoal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/descriptionGoalTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/goal"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/descriptionGoalImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/goal"
+                    app:srcCompat="@drawable/ic_goal_black_24dp" />
+
+                <TextView
+                    android:id="@+id/descriptionGoalSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/descriptionGoalTitle"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/descriptionGoalImageView"
+                    android:text="@string/descriptionGoal"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/lifeCard"
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/goalCard">
+
+            <RelativeLayout
+                android:id="@+id/cardLayoutLife"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/descriptionLifeTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/life"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/descriptionLifeImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/life"
+                    app:srcCompat="@drawable/ic_heart_black_24dp" />
+
+                <TextView
+                    android:id="@+id/descriptionLifeSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/descriptionLifeTitle"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/descriptionLifeImageView"
+                    android:text="@string/descriptionLife"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/keyCard"
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lifeCard">
+
+            <RelativeLayout
+                android:id="@+id/cardLayoutKey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/descriptionKeyTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/key"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/descriptionKeyImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/key"
+                    app:srcCompat="@drawable/ic_vpn_key_black_24dp" />
+
+                <TextView
+                    android:id="@+id/descriptionKeySubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/descriptionKeyTitle"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/descriptionKeyImageView"
+                    android:text="@string/descriptionKey"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/answerButtonCard"
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/keyCard">
+
+            <RelativeLayout
+                android:id="@+id/cardLayoutAnswerButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/descriptionAnswerButtonTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/answerButton"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/descriptionAnswerButtonImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/undefined"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/descriptionAnswerButtonImageView2"
+                    style="@android:style/Widget.Material.Button"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_below="@id/descriptionAnswerButtonImageView"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="4dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="@string/undefined"
+                    android:textColor="@color/colorAccentText"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/descriptionAnswerButtonSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/descriptionAnswerButtonTitle"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/descriptionAnswerButtonImageView"
+                    android:text="@string/descriptionAnswerButton"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/numberButtonCard"
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/answerButtonCard">
+
+            <RelativeLayout
+                android:id="@+id/cardLayoutNumberButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/descriptionNumberButtonTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/numberButton"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/descriptionNumberButtonImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="1"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/descriptionNumberButtonImageView2"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/descriptionNumberButtonImageView"
+                    android:layout_alignParentEnd="true"
+                    android:text="3"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/descriptionNumberButtonSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/descriptionNumberButtonTitle"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/descriptionNumberButtonImageView"
+                    android:text="@string/descriptionNumberButton"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/operatorButtonCard"
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/numberButtonCard">
+
+            <RelativeLayout
+                android:id="@+id/cardLayoutOperatorButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/descriptionOperatorButtonTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/operatorButton"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/descriptionOperatorButtonImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/add"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/descriptionOperatorButtonImageView2"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/descriptionOperatorButtonImageView"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/mul"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/descriptionOperatorButtonSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/descriptionOperatorButtonTitle"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/descriptionOperatorButtonImageView"
+                    android:text="@string/descriptionOperatorButton"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/pauseCard"
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/operatorButtonCard">
+
+            <RelativeLayout
+                android:id="@+id/cardLayoutPause"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/descriptionPauseTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/pause"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/descriptionPauseImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/pause"
+                    app:srcCompat="@drawable/ic_pause_black_24dp" />
+
+                <TextView
+                    android:id="@+id/descriptionPauseSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/descriptionPauseTitle"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/descriptionPauseImageView"
+                    android:text="@string/descriptionPause"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/passCard"
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pauseCard">
+
+            <RelativeLayout
+                android:id="@+id/cardLayoutPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/descriptionPassTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/pass"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/descriptionPassImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/pass"
+                    app:srcCompat="@drawable/ic_skip_next_black_24dp" />
+
+                <TextView
+                    android:id="@+id/descriptionPassSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/descriptionPassTitle"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/descriptionPassImageView"
+                    android:text="@string/descriptionPass"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/checkCard"
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/passCard">
+
+            <RelativeLayout
+                android:id="@+id/cardLayoutCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/descriptionCheckTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/check"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/descriptionCheckImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/check"
+                    app:srcCompat="@drawable/ic_check_black_24dp" />
+
+                <TextView
+                    android:id="@+id/descriptionCheckSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/descriptionCheckTitle"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/descriptionCheckImageView"
+                    android:text="@string/descriptionCheck"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/giftCard"
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkCard">
+
+            <RelativeLayout
+                android:id="@+id/cardLayoutGift"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/descriptionGiftTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/gift"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/descriptionGiftImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/gift"
+                    app:srcCompat="@drawable/ic_box_black_24dp" />
+
+                <TextView
+                    android:id="@+id/descriptionGiftSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/descriptionGiftTitle"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toStartOf="@+id/descriptionGiftImageView"
+                    android:text="@string/descriptionGift"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
