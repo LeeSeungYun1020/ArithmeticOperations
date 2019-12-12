@@ -23,7 +23,7 @@
     <string name="gift">Gift</string>
     <string name="empty">Empty box</string>
     <string name="emptyMsg">There is nothing in the box…</string>
-    <string name="giftMsgKey">You get a key.</string>
+    <string name="giftMsgKey">You get some keys.</string>
     <string name="wrong">wrong answer!</string>
     <string name="lose">Lose</string>
     <string name="loseMsg">You can clear next time…</string>

@@ -172,10 +172,11 @@ class GameActivity : AppCompatActivity() {
     private fun drawing() {
         alert {
             when ((1..100).random()) {
-                in (1..5) -> {// 5%
+                in (1..resources.getInteger(R.integer.itemKeyPercent)) -> {
                     titleResource = R.string.gift
-                    messageResource = R.string.giftMsgKey
-                    itemViewModel.update(Item("key", keyTextView.text.toString().toInt() + 1))
+                    val num = (1..10).random()
+                    message = "${R.string.giftMsgKey}($num)"
+                    itemViewModel.update(Item("key", keyTextView.text.toString().toInt() + num))
                 }
                 else -> {
                     titleResource = R.string.empty

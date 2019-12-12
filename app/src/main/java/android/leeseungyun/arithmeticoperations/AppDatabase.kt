@@ -6,7 +6,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.*
-import androidx.room.Database
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,7 +41,7 @@ interface ItemDao {
 
 }
 
-@Database(entities = [Item::class], version = 1, exportSchema = false)//엑스트라 쉬마는 테스트 위해 잠시 펄스
+@Database(entities = [Item::class], version = 1, exportSchema = false)
 abstract class ItemDatabase : RoomDatabase() {
     abstract fun itemDao(): ItemDao
 
@@ -80,9 +79,8 @@ abstract class ItemDatabase : RoomDatabase() {
         }
 
         suspend fun populateDatabase(itemDao: ItemDao) {
-            // 테스트 위해 데이터 베이스 초기화 // TODO("서버와 동기화")
-            itemDao.deleteAll()
-            itemDao.insert(Item("key", 10))
+            if (itemDao.findByName("key") == null)
+                itemDao.insert(Item("key", 10))
         }
 
     }
@@ -91,10 +89,6 @@ abstract class ItemDatabase : RoomDatabase() {
 class ItemRepository(private val itemDao: ItemDao) {
 
     val allItems: LiveData<List<Item>> = itemDao.getAll()
-
-    fun itemCount(itemName: String): Int {
-        return itemDao.findByName(itemName).count
-    }
 
     suspend fun insert(item: Item) {
         itemDao.insert(item)
@@ -109,12 +103,9 @@ class ItemRepository(private val itemDao: ItemDao) {
     }
 }
 
-// Class extends AndroidViewModel and requires application as a parameter.
 class ItemViewModel(application: Application) : AndroidViewModel(application) {
 
-    // The ViewModel maintains a reference to the repository to get data.
     private val repository: ItemRepository
-    // LiveData gives us updated words when they change.
     val allItems: LiveData<List<Item>>
 
     init {

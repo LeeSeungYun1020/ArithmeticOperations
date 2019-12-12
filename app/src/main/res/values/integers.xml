@@ -5,4 +5,5 @@
     <integer name="life">3</integer>
     <integer name="key">2</integer>
     <integer name="max">9</integer>
+    <integer name="itemKeyPercent">85</integer>
 </resources>

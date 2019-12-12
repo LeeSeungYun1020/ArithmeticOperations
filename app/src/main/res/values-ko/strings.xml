@@ -18,7 +18,7 @@
     <string name="gift">선물</string>
     <string name="empty">빈 상자</string>
     <string name="emptyMsg">상자 안에 아무것도 없네요…</string>
-    <string name="giftMsgKey">열쇠를 하나 얻었어요.</string>
+    <string name="giftMsgKey">열쇠를 조금 받았어요.</string>
     <string name="wrong">틀렸습니다!</string>
     <string name="lose">패배</string>
     <string name="loseMsg">다음번에는 할 수 있을겁니다…</string>
