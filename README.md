@@ -2,17 +2,22 @@
 
 ## 사칙연산은?
 사칙연산을 이용한 발칙한 게임  
-![시연 영상](media/demo_game.mp4)  
+
+
+https://user-images.githubusercontent.com/34941061/152646892-93414a73-0170-4cd0-979d-c6eda848ef6e.mp4
+
+
 기존의 사칙연산 문제가 주어진 식에 맞는 답을 찾는 문제였다면  
 이 게임은 주어진 답에 대한 식을 찾는 것이 목표!  
 주어지는 정답에 맞는 숫자와 연산자를 드래그하여 적절한 위치에 배치하면 된다.
 
 ## 구성
+### 게임 설명
+
+https://user-images.githubusercontent.com/34941061/152646905-a9a546e9-0b57-4256-a8b5-61ddca2ae013.mp4
+
 ### 게임 시작
-<img alt="게임 캡처1" src="media/game1.jpg" width="270"/>
-<img alt="게임 캡처2" src="media/game2.jpg" width="270"/>
-<img alt="게임 캡처3" src="media/game3.jpg" width="270"/>
-<img alt="게임 캡처4" src="media/game4.jpg" width="270"/>  
+<img alt="게임 캡처1" src="media/game1.jpg" width="32%"/> <img alt="게임 캡처2" src="media/game2.jpg" width="32%"/> <img alt="게임 캡처3" src="media/game3.jpg" width="32%"/> <img alt="게임 캡처4" src="media/game4.jpg" width="32%"/>  
 
 목표량만큼 문제를 모두 해결해면 승리한다. 승리하면 게임에서 유용하게 사용할 수 있는 열쇠 아이템을 획득할 수 있다.  
 각 문제에는 정해진 시간이 있으며 숫자와 연산자를 드래그하여 답안 상자를 채워 넣은 후 체크 버튼을 눌러 정답을 확인할 수 있다.  
@@ -22,14 +27,11 @@
 
 ### 연습 모드
 
-![연습 영상](media/demo_desc.mp4)
-<img alt="연습 캡처" src="media/desc.jpg" width="270"/>
-
-연습 모드에서는 시간, 목표, 생명, 열쇠, 숫자 최댓값등을 바꾸어 실험할 수 있게 구성하였다.  
+연습 모드에서는 시간, 목표, 생명, 열쇠, 숫자 최댓값 등을 바꾸어 실험할 수 있게 구성하였다.  
 처음 설정된 게임 모드가 어렵고 지루하다고 여겨진다면 연습 모드를 통해 나만의 게임 구성을 만들고 도전할 수 있다.
 
 ### 설정
-<img alt="설정 캡처" src="media/settings.jpg" width="270"/>
+<img alt="설정 캡처" src="media/settings.jpg" width="32%"/>
 
 연습 모드내 설정을 변경할 수 있다.  
 오류 신고를 할 수 있으며 깃허브 링크로 이 페이지로 바로 방문 가능하다.  
